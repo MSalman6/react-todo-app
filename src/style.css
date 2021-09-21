@@ -1,0 +1,42 @@
+body {
+  margin: 20px 50px 0px 50px;
+}
+
+main {
+  margin-top: 200px;
+}
+
+.navbar {
+  color: green;
+}
+
+.navbar .nav-brand {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navbar .nav-navigation {
+  float: right
+}
+
+.navbar .nav-links {
+  display: inline;
+  padding: 5px;
+  color: black;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.navbar .nav-links:hover {
+  color: green;
+  cursor: pointer;
+}
+
+.todo-container {
+  margin-bottom: 10px;
+}
+
+.todo-container:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px #888888;
+}
