@@ -1,24 +1,46 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector, connect } from "react-redux";
 // import { decrement, increment } from "./redux/slices/countSlice";
 import { increment, decrement } from "./redux/ducks/countReducer";
+import { fetchTodos } from "./redux/thunk/todos";
 
-const Home = () => {
+const Home = ({todos, getTodos}) => {
     const count = useSelector((state) => state.counter.value);
     const dispatch = useDispatch();
+    const todos_array = todos.todos;
+    const loading = todos.loading;
+    const error = todos.err_msg
 
-    return ( 
+    useEffect(() => {
+        getTodos()
+    }, []);
+
+    return (
         <div className="home">
-            <div className="home-data">
-                <div className="todo-container">
-                    <p>count: {count}</p>
-                    <p>Title: </p>
-                    <p>Description: </p>
-                    <button onClick={() => dispatch(increment())}>+1</button>
-                    <button onClick={() => dispatch(decrement())}>-1</button>
-                </div>
-            </div>
+                {error && <div>{error}</div>}
+                {loading && <div>Loading...</div>}
+                <h2 className="title">Todos</h2>
+                {todos_array && todos_array.map(
+                    (todo) => 
+                        <div className="todo-container" key={todo.id}>
+                            <p>Title: {todo.title}</p>
+                            <p>Description: {todo.description}</p>
+                        </div>
+                )}
         </div>
      );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        todos: state.todos
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getTodos: () => dispatch(fetchTodos())
+    }
+}
  
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

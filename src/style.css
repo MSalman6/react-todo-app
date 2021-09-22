@@ -2,8 +2,10 @@ body {
   margin: 20px 50px 0px 50px;
 }
 
-main {
-  margin-top: 200px;
+.title {
+  text-align: center;
+  color: green;
+  padding: 50px;
 }
 
 .navbar {
@@ -33,10 +35,10 @@ main {
 }
 
 .todo-container {
-  margin-bottom: 10px;
+  margin-bottom: 50px;
 }
 
 .todo-container:hover {
   cursor: pointer;
-  box-shadow: 2px 2px #888888;
+  box-shadow: 0px 2px #888888;
 }
