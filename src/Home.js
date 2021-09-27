@@ -12,7 +12,7 @@ const Home = ({todos, getTodos}) => {
     const error = todos.err_msg
 
     useEffect(() => {
-        getTodos()
+        dispatch(getTodos())
     }, []);
 
     return (
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTodos: () => dispatch(fetchTodos())
+        getTodos: () => fetchTodos()
     }
 }
  
