@@ -30,7 +30,7 @@ const Home = ({getTodos, deleteTodo}) => {
             { todos && todos.map((todo) => (
                 <div className="todo-container" key={todo.id}>
                     <div className="todo-title"><b>Title:</b>  {todo.title}</div>
-                    <div><b>Description:</b> {todo.description}</div>
+                    <div><b>Description:</b> <p>{todo.description}</p></div>
                     <div><button className="del-btn" onClick={() => handleDelete(todo)}>Remove!</button></div>
                 </div>
             )) }
@@ -49,5 +49,5 @@ const mapDispathToProps = (dispatch) => {
         deleteTodo: delTodo
     }
 }
- 
+
 export default connect(mapStateToProps, mapDispathToProps)(Home);

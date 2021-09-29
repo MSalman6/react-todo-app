@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const initialState = {
     todos: [],
     err: false,
@@ -76,17 +78,23 @@ export const fetchTodos = () => {
     return (dispatch) => {
         const url = "http://127.0.0.1:8000/todos"
 
-        fetch(url, {
-            method: 'GET'
-        }).then (
-            response => response.json()
-        ).then(
-            data => {
-                dispatch(getTodoSuccess(data));
-            }
+        axios.get(url).then(
+            response => {dispatch(getTodoSuccess(response.data))}
         ).catch(
             err => {console.log(err)}
         )
+
+        // fetch(url, {
+        //     method: 'GET'
+        // }).then (
+        //     response => response.json()
+        // ).then(
+        //     data => {
+        //         dispatch(getTodoSuccess(data));
+        //     }
+        // ).catch(
+        //     err => {console.log(err)}
+        // )
     }
 }
 
@@ -96,24 +104,34 @@ export const postTodo = (title, description) => {
     return (dispatch) => {
         const url = "http://127.0.0.1:8000/todos"
 
-        fetch(url, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({title, description})
-        }).then (
-            response => response.json()
+        axios.post(url, 
+            {title, description}
         ).then(
-            data => {
-                dispatch(addTodoFailed(""))
-                dispatch(addTodoSuccess(true));
-            }
-        ).catch(
-            err => {
-                console.log(err);
-                dispatch(addTodoFailed(err));
-            }
-            
-        )
+        response => {
+            dispatch(addTodoFailed(""))
+            dispatch(addTodoSuccess(true));
+        }).catch(err => {
+            console.log(err);
+            dispatch(addTodoFailed(err));
+        })
+
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     body: JSON.stringify({title, description})
+        // }).then (
+        //     response => response.json()
+        // ).then(
+        //     data => {
+        //         dispatch(addTodoFailed(""))
+        //         dispatch(addTodoSuccess(true));
+        //     }
+        // ).catch(
+        //     err => {
+        //         console.log(err);
+        //         dispatch(addTodoFailed(err));
+        //     }
+        // )
     }
 }
 
@@ -122,14 +140,9 @@ export const delTodo = (id) => {
 
     return (dispatch) => {
         const url = "http://127.0.0.1:8000/todos/" + id
-        console.log(id);
 
-        fetch(url, {
-            method: 'DELETE',
-        }).then (
-            response => response.json()
-        ).then(
-            data => {
+        axios.delete(url).then(
+            response => {
                 dispatch(delTodoFailed(""))
                 dispatch(delTodoSuccess(true));
             }
@@ -138,7 +151,22 @@ export const delTodo = (id) => {
                 console.log(err);
                 dispatch(delTodoFailed(err));
             }
-            
         )
+
+        // fetch(url, {
+        //     method: 'DELETE',
+        // }).then (
+        //     response => response.json()
+        // ).then(
+        //     data => {
+        //         dispatch(delTodoFailed(""))
+        //         dispatch(delTodoSuccess(true));
+        //     }
+        // ).catch(
+        //     err => {
+        //         console.log(err);
+        //         dispatch(delTodoFailed(err));
+        //     }
+        // )
     }
 }
