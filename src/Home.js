@@ -1,46 +1,53 @@
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTodos, delTodo, delTodoSuccess } from "./redux/ducks/todoReducer";
+import { connect } from "react-redux";
 import { useEffect } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
-// import { decrement, increment } from "./redux/slices/countSlice";
-import { increment, decrement } from "./redux/ducks/countReducer";
-import { fetchTodos } from "./redux/thunk/todos";
+import { useHistory } from "react-router-dom";
 
-const Home = ({todos, getTodos}) => {
-    const count = useSelector((state) => state.counter.value);
+const Home = ({getTodos, deleteTodo}) => {
+    const todos = useSelector((state) => state.todoReducer.todos);
+    const delTodoSuc = useSelector((state) => state.todoReducer.todoDelSuccess)
     const dispatch = useDispatch();
-    const todos_array = todos.todos;
-    const loading = todos.loading;
-    const error = todos.err_msg
+    const history = useHistory();
 
     useEffect(() => {
-        dispatch(getTodos())
-    }, []);
+        dispatch(getTodos());
 
-    return (
+        if (delTodoSuc) {
+            dispatch(delTodoSuccess(false))
+            history.push("/")
+        }
+
+    }, [dispatch, history, getTodos, delTodoSuc])
+
+    const handleDelete = (todo) => {
+        dispatch(deleteTodo(todo.id));
+    }
+
+    return ( 
         <div className="home">
-                {error && <div>{error}</div>}
-                {loading && <div>Loading...</div>}
-                <h2 className="title">Todos</h2>
-                {todos_array && todos_array.map(
-                    (todo) => 
-                        <div className="todo-container" key={todo.id}>
-                            <p>Title: {todo.title}</p>
-                            <p>Description: {todo.description}</p>
-                        </div>
-                )}
+            <h1 className="page-heading">Todos List</h1>
+            { todos && todos.map((todo) => (
+                <div className="todo-container" key={todo.id}>
+                    <div className="todo-title"><b>Title:</b>  {todo.title}</div>
+                    <div><b>Description:</b> {todo.description}</div>
+                    <div><button className="del-btn" onClick={() => handleDelete(todo)}>Remove!</button></div>
+                </div>
+            )) }
         </div>
      );
 }
 
 const mapStateToProps = (state) => {
     return {
-        todos: state.todos
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispathToProps = (dispatch) => {
     return {
-        getTodos: () => fetchTodos()
+        getTodos: fetchTodos,
+        deleteTodo: delTodo
     }
 }
  
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispathToProps)(Home);
