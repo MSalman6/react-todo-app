@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 const Home = ({getTodos, deleteTodo}) => {
-    const todos = useSelector((state) => state.todoReducer.todos);
-    const delTodoSuc = useSelector((state) => state.todoReducer.todoDelSuccess)
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const todos = useSelector((state) => state.todoReducer.todos);
+    const delTodoSuc = useSelector((state) => state.todoReducer.todoDelSuccess)
 
     useEffect(() => {
         dispatch(getTodos());
