@@ -1,6 +1,7 @@
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from "@material-ui/core";
+import { Avatar, AppBar, Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import { AddCircleOutlineOutlined, SubjectOutlined } from "@mui/icons-material";
 import { useHistory, useLocation } from "react-router-dom";
+import format from "date-fns/format";
 
 const drawerWidth = 240
 
@@ -25,6 +26,16 @@ const useStyles = makeStyles((theme) => {
         },
         title: {
             padding: theme.spacing(2)
+        },
+        appbar: {
+            width: `calc(100% - ${drawerWidth}px)`,
+        },
+        toolbar: theme.mixins.toolbar,
+        date: {
+            flexGrow: 1
+        },
+        avatar: {
+            marginLeft: theme.spacing(2)
         }
     }
 });
@@ -53,6 +64,19 @@ const Layout = ({children}) => {
 
     return (
         <div className={classes.root}>
+            <AppBar className={classes.appbar}>
+                <Toolbar>
+                    <Typography className={classes.date}>
+                        Today is the {format(new Date(), 'do MMMM Y')}
+                    </Typography>
+
+                    <Typography>
+                        Mario
+                    </Typography>
+                    <Avatar src="https://cdn.wionews.com/sites/default/files/styles/story_page/public/2020/10/02/162864-mario.jpg" className={classes.avatar}/>
+                </Toolbar>
+            </AppBar>
+
             <Drawer
                 className={classes.drawer}
                 variant="permanent"
@@ -75,6 +99,7 @@ const Layout = ({children}) => {
             </Drawer>
 
             <div className={classes.page}>
+                <div className={classes.toolbar}></div>
                 {children}
             </div>
         </div>

@@ -17,7 +17,7 @@ const Create = () => {
     const classes = useStyles();
 
     const [title, setTitle] = useState('');
-    const [detail, setDetail] = useState('');
+    const [details, setDetail] = useState('');
     const [category, setCategory] = useState('');
 
     const [titleError, setTitleError] = useState(false);
@@ -26,7 +26,7 @@ const Create = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(title, detail, category);
+        console.log(title, details, category);
 
         if (!title) {
             setTitleError(true)
@@ -34,18 +34,18 @@ const Create = () => {
             setTitleError(false)
         }
 
-        if (!detail) {
+        if (!details) {
             setDetailError(true)
         } else {
             setDetailError(false)
         }
         
 
-        if (title && detail && category) {
+        if (title && details && category) {
             const url = 'http://127.0.0.1:8000/notes'
 
             axios.post(url, {
-                title, detail, category
+                title, details, category
             }).then(
                 response => {
                     console.log(response);
@@ -65,7 +65,7 @@ const Create = () => {
             </Typography>
             <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <TextField value={title} onChange={(e) => setTitle(e.target.value)} className={ classes.field } variant="outlined" label="Note Title" color="secondary" fullWidth required error={titleError}/>
-                <TextField value={detail} onChange={(e) => setDetail(e.target.value)} className={ classes.field } variant="outlined" multiline rows={4} label="Details" color="secondary" fullWidth required error={detailError}/>
+                <TextField value={details} onChange={(e) => setDetail(e.target.value)} className={ classes.field } variant="outlined" multiline rows={4} label="Details" color="secondary" fullWidth required error={detailError}/>
                 <FormControl className={classes.field}>
                     <FormLabel>Choose a category:</FormLabel>
                     <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
