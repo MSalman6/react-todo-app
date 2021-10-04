@@ -3,8 +3,8 @@
 /* base styles */
 * {
   margin: 0;
-  font-family: "Quicksand";
-  color: #333;
+  /* font-family: "Quicksand"; */
+  /* color: #333; */
 }
 
 .page-heading {

@@ -1,29 +1,51 @@
 import Home from "./Home";
+import NotFound from "./404";
+import Layout from "./Layout";
 import NavBar from "./NavBar";
 import AddTodo from "./AddTodo";
+import { purple } from "@material-ui/core/colors";
+import { createTheme, ThemeProvider  } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NotFound from "./404";
+
+
+const theme = createTheme({
+  palette: {
+    primary: purple,
+    secondary: {
+      main: '#fefefe'
+    }
+  },
+  typography: {
+    fontFamily: 'Quicksand',
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700
+  }
+})
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-          <NavBar />
-          <div className="content">
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/add">
-                <AddTodo />
-              </Route>
-              <Route exact path="*">
-                <NotFound />
-              </Route>
-            </Switch>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Layout>
+          <div className="App">
+              {/* <NavBar /> */}
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/add">
+                  <AddTodo />
+                </Route>
+                <Route exact path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
           </div>
-      </div>
-    </Router>
+        </Layout>
+      </Router>
+    </ThemeProvider>
   );
 }
 
