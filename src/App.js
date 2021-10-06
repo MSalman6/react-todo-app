@@ -3,7 +3,7 @@ import NotFound from "./404";
 import Layout from "./Layout";
 import NavBar from "./NavBar";
 import AddTodo from "./AddTodo";
-import { purple } from "@material-ui/core/colors";
+import { purple, red } from "@material-ui/core/colors";
 import { createTheme, ThemeProvider  } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -21,6 +21,9 @@ const theme = createTheme({
     fontWeightRegular: 500,
     fontWeightMedium: 600,
     fontWeightBold: 700
+  },
+  appBar: {
+    height: 90
   }
 })
 

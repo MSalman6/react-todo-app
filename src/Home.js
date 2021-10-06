@@ -3,8 +3,26 @@ import { fetchTodos, delTodo, delTodoSuccess } from "./redux/ducks/todoReducer";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import TodoCard from "./Card";
+import { Container, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import { purple } from "@material-ui/core/colors";
+
+const useStyles = makeStyles((theme) => {
+    return {
+        title: {
+            textAlign: 'center',
+            textColor: purple,
+            fontWeight: 'bold',
+            marginBottom: theme.spacing(4),
+            marginTop: theme.spacing(4)
+        }
+    }
+})
+
 
 const Home = ({getTodos, deleteTodo}) => {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -27,14 +45,20 @@ const Home = ({getTodos, deleteTodo}) => {
 
     return ( 
         <div className="home">
-            <h1 className="page-heading">Todos List</h1>
-            { todos && todos.map((todo) => (
-                <div className="todo-container" key={todo.id}>
-                    <div className="todo-title"><b>Title:</b>  {todo.title}</div>
-                    <div><b>Description:</b> <p>{todo.description}</p></div>
-                    <div><button className="del-btn" onClick={() => handleDelete(todo)}>Remove!</button></div>
-                </div>
-            )) }
+            <Typography
+                variant="h4"
+                className={classes.title}
+            >Todos</Typography>
+            <Container>
+                { todos && todos.map((todo) => (
+                    <TodoCard todo={todo}/>
+                    // <div className="todo-container" key={todo.id}>
+                    //     <div className="todo-title"><b>Title:</b>  {todo.title}</div>
+                    //     <div><b>Description:</b> <p>{todo.description}</p></div>
+                    //     <div><button className="del-btn" onClick={() => handleDelete(todo)}>Remove!</button></div>
+                    // </div>
+                )) }
+            </Container>
         </div>
      );
 }
