@@ -4,9 +4,10 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import TodoCard from "./Card";
-import { Container, Typography } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
+import Masonry from "react-masonry-css";
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -50,14 +51,21 @@ const Home = ({getTodos, deleteTodo}) => {
                 className={classes.title}
             >Todos</Typography>
             <Container>
-                { todos && todos.map((todo) => (
-                    <TodoCard todo={todo}/>
-                    // <div className="todo-container" key={todo.id}>
-                    //     <div className="todo-title"><b>Title:</b>  {todo.title}</div>
-                    //     <div><b>Description:</b> <p>{todo.description}</p></div>
-                    //     <div><button className="del-btn" onClick={() => handleDelete(todo)}>Remove!</button></div>
-                    // </div>
-                )) }
+                <Masonry
+                    breakpointCols={3}
+                    className="my-masonry-grid"
+                    columnClassName="my-masonry-grid_column">
+                        { todos && todos.map((todo) => (
+                            <div key={todo.id}>
+                                <TodoCard todo={todo} handleDelete={handleDelete}/>
+                            </div>
+                            // <div className="todo-container" key={todo.id}>
+                            //     <div className="todo-title"><b>Title:</b>  {todo.title}</div>
+                            //     <div><b>Description:</b> <p>{todo.description}</p></div>
+                            //     <div><button className="del-btn" onClick={() => handleDelete(todo)}>Remove!</button></div>
+                            // </div>
+                        )) }
+                </Masonry>
             </Container>
         </div>
      );
