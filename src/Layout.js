@@ -86,7 +86,7 @@ const Layout = ({children}) => {
                                 button
                                 key={listItem.text}
                                 onClick={() => history.push(listItem.path)}
-                                className={location.pathname == listItem.path ? classes.active : null}
+                                className={location.pathname === listItem.path ? classes.active : null}
                             >
                                 <ListItemIcon>
                                     {listItem.icon}

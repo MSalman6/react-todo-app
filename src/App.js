@@ -1,9 +1,8 @@
 import Home from "./Home";
 import NotFound from "./404";
 import Layout from "./Layout";
-import NavBar from "./NavBar";
 import AddTodo from "./AddTodo";
-import { purple, red } from "@material-ui/core/colors";
+import { purple } from "@material-ui/core/colors";
 import { createTheme, ThemeProvider  } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 

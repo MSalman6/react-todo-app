@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import TodoCard from "./Card";
-import { Container, Grid, Typography } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 import Masonry from "react-masonry-css";
